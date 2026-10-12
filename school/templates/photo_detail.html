@@ -1,4 +1,4 @@
-{% comment %} {% extends 'photo_gallery/base.html' %}
+{% extends 'photo_gallery/base.html' %}
 {% block content %}
 <div class="max-w-4xl mx-auto bg-white border border-gray-100 rounded-2xl shadow-lg overflow-hidden">
     <img src="{{ photo.image.url }}" alt="{{ photo.title }}" class="w-full max-h-[500px] object-cover">
@@ -31,4 +31,4 @@
         </div>
     </div>
 </div>
-{% endblock %} {% endcomment %}
+{% endblock %}

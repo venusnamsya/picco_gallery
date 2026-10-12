@@ -1,0 +1,40 @@
+{% extends 'photo_gallery/base.html' %}
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-3xl font-extrabold text-[#4c1d95] mb-4">Explore Artworks</h1>
+    
+    <!-- Tag Cloud -->
+    <div class="flex flex-wrap gap-2">
+        <a href="{% url 'homepage' %}" class="px-3 py-1.5 rounded-full text-sm {% if not selected_tag %}bg-[#4c1d95] text-[#fdfbf7]{% else %}bg-gray-200 text-gray-700{% endif %}">
+            All
+        </a>
+        {% for tag in tags %}
+        <a href="{% url 'homepage' %}?tag={{ tag.name }}" class="px-3 py-1.5 rounded-full text-sm {% if selected_tag == tag.name %}bg-[#4c1d95] text-[#fdfbf7]{% else %}bg-gray-200 text-gray-700{% endif %}">
+            #{{ tag.name }}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Photos Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {% for photo in photos %}
+    <div class="bg-white border border-gray-100 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition">
+        <img src="{{ photo.image.url }}" alt="{{ photo.title }}" class="w-full h-56 object-cover">
+        <div class="p-5">
+            <h2 class="text-xl font-bold text-gray-900 mb-1">{{ photo.title }}</h2>
+            <div class="flex flex-wrap gap-1 mb-4">
+                {% for tag in photo.tags.all %}
+                    <span class="text-xs text-[#4c1d95] font-semibold bg-purple-50 px-2 py-0.5 rounded">#{{ tag.name }}</span>
+                {% endfor %}
+            </div>
+            <a href="{% url 'photo_detail' photo.pk %}" class="inline-block w-full text-center bg-[#4c1d95] text-[#fdfbf7] py-2 rounded-lg font-medium hover:bg-[#3b1675] transition">
+                View Details
+            </a>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-gray-500 col-span-3 text-center py-12">No images found matching your selection.</p>
+    {% endfor %}
+</div>
+{% endblock %}

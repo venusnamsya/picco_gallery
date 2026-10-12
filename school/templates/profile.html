@@ -1,0 +1,31 @@
+{% comment %} {% extends 'photo_gallery/base.html' %}
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white border border-gray-100 p-8 rounded-2xl shadow-lg mt-6">
+    <h1 class="text-3xl font-bold text-[#4c1d95] mb-2">Your Profile</h1>
+    <p class="text-gray-500 mb-6">Manage your account details and personalization settings.</p>
+    
+    <div class="border-t border-gray-100 pt-6 space-y-4">
+        <div>
+            <span class="block text-xs font-semibold uppercase tracking-wider text-gray-400">Username</span>
+            <span class="text-lg font-medium text-gray-800">{{ user.username }}</span>
+        </div>
+        <div>
+            <span class="block text-xs font-semibold uppercase tracking-wider text-gray-400">Email Address</span>
+            <span class="text-lg font-medium text-gray-800">{{ user.email|default:"Not specified" }}</span>
+        </div>
+    </div>
+
+    <!-- Update Profile Form -->
+    <form method="POST" class="mt-8 border-t border-gray-100 pt-6 space-y-4">
+        {% csrf_token %}
+        <div>
+            <label for="bio" class="block text-sm font-semibold text-gray-700 mb-1">Biography</label>
+            <textarea id="bio" name="bio" rows="4" class="w-full border border-gray-200 rounded-lg p-3 focus:outline-none focus:border-[#4c1d95]" placeholder="Tell us about yourself...">{{ user.profile.bio }}</textarea>
+        </div>
+        
+        <button type="submit" class="bg-[#4c1d95] text-[#fdfbf7] px-6 py-2 rounded-lg font-semibold hover:bg-[#3b1675] transition">
+            Save Changes
+        </button>
+    </form>
+</div>
+{% endblock %} {% endcomment %}
